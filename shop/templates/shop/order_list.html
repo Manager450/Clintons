@@ -1,0 +1,33 @@
+{% extends 'shop/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Order List</h1>
+    {% if orders %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.customer.username }}</td>  <!-- Adjust based on your Order model -->
+                    <td>{{ order.get_status_display }}</td> <!-- Assuming you have a status field -->
+                    <td>
+                        <a href="{% url 'order_detail' order.id %}" class="btn btn-info">View</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No orders available.</p>
+    {% endif %}
+</div>
+{% endblock %}
